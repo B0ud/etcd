@@ -32,5 +32,5 @@ jobs:
         run: ls -ali contrib/mixin/      
       - uses: actions/upload-artifact@v4
         with:
-          name: contrib/mixin/manifests
-          path: dashboards_out     
+          name: manifests
+          path: contrib/mixin/manifests     
