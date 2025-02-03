@@ -3,7 +3,7 @@
   _config+:: {
 
     // set to true if dashboards should be compatible with Grafana 7x or earlier
-    grafana7x: false,
+    grafana7x: true,
 
     etcd_selector: 'job=~".*etcd.*"',
     // etcd_instance_labels are the label names that are uniquely
@@ -21,6 +21,6 @@
     // 2 : On Time Range Change (Will refresh Dashboards variables when time range will be changed)
     dashboard_var_refresh: 2,
     // clusterLabel is used to identify a cluster.
-    clusterLabel: 'job',
+    clusterLabel: 'cluster',
   },
 }
