@@ -11,28 +11,25 @@ on:
         required: false
         default: 'staging'
 jobs:
-  matrix:
+  build:
     runs-on: ubuntu-latest
-    name: ${{ matrix.name }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: Build
-            run: cd contrib/mixin && make manifests
-
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - id: goversion
+        run: echo "goversion=$(cat .go-version)" >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5.3.0
         with:
-          go-version-file: scripts/go.mod
-          cache-dependency-path: scripts/go.sum
-      - run: ${{ matrix.run }}
+          go-version: ${{ steps.goversion.outputs.goversion }}
+      - run: |
+          set -euo pipefail
+
+          make -C contrib/mixin tools manifests
       - uses: actions/download-artifact@v4
       - name: Display structure of downloaded files
-        run: ls -R      
+        run: ls -ali contrib/mixin/      
       - uses: actions/upload-artifact@v4
         with:
           name: contrib/mixin/manifests
