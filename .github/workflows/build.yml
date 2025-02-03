@@ -28,7 +28,8 @@ jobs:
 
           make -C contrib/mixin tools manifests
       - run: |
-          jsonnet -J vendor contrib/mixin/mixin.libsonnet 
+          cd contrib/mixin 
+          jsonnet -J vendor mixin.libsonnet 
       - uses: actions/download-artifact@v4
       - name: Display structure of downloaded files
         run: ls -ali contrib/mixin/      
