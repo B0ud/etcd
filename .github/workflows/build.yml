@@ -27,6 +27,8 @@ jobs:
           set -euo pipefail
 
           make -C contrib/mixin tools manifests
+
+          jsonnet vendor mixin.libsonnet dashboards/*.libsonnet
       - uses: actions/download-artifact@v4
       - name: Display structure of downloaded files
         run: ls -ali contrib/mixin/      
